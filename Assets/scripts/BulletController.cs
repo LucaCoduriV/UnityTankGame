@@ -57,7 +57,6 @@ public class BulletController : MonoBehaviour
         selectedBullet.Departure(speed, cannon);
 
         actualBulletID = ( actualBulletID < numberOfBullet-1) ? (actualBulletID + 1) : 0;
-        Debug.Log(actualBulletID);
 
     }
 
@@ -70,4 +69,5 @@ public class BulletController : MonoBehaviour
         }
         return false;
     }
+
 }

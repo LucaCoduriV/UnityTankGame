@@ -20,6 +20,7 @@ public class MyPlayerController2D : MonoBehaviour
 
     private GameObject cannonPivot;
     private GameObject bulletController;
+    private bool facingRight = true;
     
     
 
@@ -54,12 +55,14 @@ public class MyPlayerController2D : MonoBehaviour
 
     public void GoRight()
     {
+        if (!facingRight) Flip();
         speedTarget = new Vector2(tankVelocity, player.velocity.y);
         player.velocity = Vector2.SmoothDamp(player.velocity, speedTarget, ref currentVelocity, movementSmoothing);
     }
 
     public void GoLeft()
     {
+        if (facingRight) Flip();
         speedTarget = new Vector2(-tankVelocity, player.velocity.y);
         player.velocity = Vector2.SmoothDamp(player.velocity, speedTarget, ref currentVelocity, movementSmoothing);
     }
@@ -89,8 +92,14 @@ public class MyPlayerController2D : MonoBehaviour
         bulletController.GetComponent<BulletController>().BulletSelector(cannonPivot);
     }
 
-    private void rotateSprite()
+    private void Flip()
     {
+        // Switch the way the player is labelled as facing.
+        facingRight = !facingRight;
 
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
